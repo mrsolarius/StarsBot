@@ -4,8 +4,8 @@
   "description": "Le bot Discord des étoiles !",
   "main": "src/main.ts",
   "scripts": {
-    "dev": "../../Downloads/car/temps/node_modules/.bin/ts-node src/main.ts",
-    "test": "../../Downloads/car/temps/node_modules/.bin/ts-mocha test/test.ts"
+    "test": "ts-mocha test/test.ts",
+    "start": "ts-node src/main.ts"
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.0",
