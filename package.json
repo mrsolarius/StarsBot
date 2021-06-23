@@ -5,7 +5,8 @@
   "main": "src/main.ts",
   "scripts": {
     "test": "ts-mocha test/test.ts",
-    "start": "ts-node src/main.ts --trace-warnings"
+    "start": "ts-node src/main.ts",
+    "dev": "ts-node src/main.ts --trace-warnings --unhandled-rejections=strict"
   },
   "devDependencies": {
     "@types/chai": "^4.2.19",

@@ -69,7 +69,7 @@ export default class QueryAPOD implements aopdQuery{
             if (QueryAPOD.isValidDate(value)) {
                 return QueryAPOD.formatDate(value)
             } else {
-                throw new TypeError(value + " is an incorrect date format")
+                throw new TypeError(value + " is an incorrect date format please use this format : `yyyy-mm-dd`")
             }
         }else {
             throw new TypeError("You need to defined your date values")
@@ -104,6 +104,7 @@ export default class QueryAPOD implements aopdQuery{
     }
 
     public async getAPOD() : Promise<bodyAPOD> {
+        console.log('https://api.nasa.gov/planetary/apod?'+this.urlParameters(),{method:'GET'})
         const request = await fetch('https://api.nasa.gov/planetary/apod?'+this.urlParameters(),{method:'GET'})
         if (request.status===200)
             return await request.json()
