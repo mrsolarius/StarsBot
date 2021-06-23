@@ -1,4 +1,4 @@
-# starsbot
+# StarsBot
 Le bot Discord des étoiles !
 
 # Aide utilisateurs
