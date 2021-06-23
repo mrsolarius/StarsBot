@@ -32,10 +32,16 @@ export default class CommandService {
 
             const command = this.findCommand(slicedContent);
             const ctx = new CommandContext(msg, command);
-            await command.execute(ctx, ...CommandService.getCommandArgs(slicedContent));
+            ctx.channel.startTyping(10)
+            try {
+                await command.execute(ctx, ...CommandService.getCommandArgs(slicedContent));
+            }finally {
+                ctx.channel.stopTyping(true)
+            }
             return command;
         } catch (error) {
-            if (error instanceof TypeError){
+            console.log("Command.service : \n" + error)
+            if (error instanceof TypeError && error.message === 'Cannot read property \'execute\' of undefined'){
                 await msg.channel.send(`> :warning: la command demander n'existes pas`);
                 return Promise.reject()
             }
