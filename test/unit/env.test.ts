@@ -49,4 +49,16 @@ describe('utils/env', () => {
 
         expect(validateEnv).to.not.throw();
     });
+
+    it('NASA_API is not defined, error throw ', function () {
+        process.env.NASA_API=undefined
+
+        expect(validateEnv).to.throw();
+    });
+
+    it('PREFIX is defined as string, accepted', function () {
+        process.env.NASA_API='this is un actual nasa api key'
+
+        expect(validateEnv).to.not.throw();
+    });
 });
