@@ -9,9 +9,9 @@ export class ExpeditionService {
 
     /**
      * API endpoint that allows Expeditions to be viewed.
-     * @param crewAstronaut 
-     * @param name 
      * @param spaceStation 
+     * @param name 
+     * @param crewAstronaut 
      * @param crewAstronautAgency 
      * @param startGt 
      * @param startLt 
@@ -29,9 +29,9 @@ export class ExpeditionService {
      * @throws ApiError
      */
     public static async expeditionList(
-crewAstronaut?: string,
-name?: string,
 spaceStation?: string,
+name?: string,
+crewAstronaut?: string,
 crewAstronautAgency?: string,
 startGt?: string,
 startLt?: string,
@@ -55,9 +55,9 @@ results: Array<Expedition>,
             method: 'GET',
             path: `/expedition/`,
             query: {
-                'crew__astronaut': crewAstronaut,
-                'name': name,
                 'space_station': spaceStation,
+                'name': name,
+                'crew__astronaut': crewAstronaut,
                 'crew__astronaut__agency': crewAstronautAgency,
                 'start__gt': startGt,
                 'start__lt': startLt,

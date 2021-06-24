@@ -9,11 +9,11 @@ export class AstronautService {
 
     /**
      * API endpoint that allows Astronaut to be viewed.
-     * @param name 
      * @param dateOfDeath 
-     * @param nationality 
-     * @param dateOfBirth 
+     * @param name 
      * @param status 
+     * @param dateOfBirth 
+     * @param nationality 
      * @param agencyAbbrev 
      * @param agencyName 
      * @param dateOfBirthGt 
@@ -32,11 +32,11 @@ export class AstronautService {
      * @throws ApiError
      */
     public static async astronautList(
-name?: string,
 dateOfDeath?: string,
-nationality?: string,
-dateOfBirth?: string,
+name?: string,
 status?: string,
+dateOfBirth?: string,
+nationality?: string,
 agencyAbbrev?: string,
 agencyName?: string,
 dateOfBirthGt?: string,
@@ -61,11 +61,11 @@ results: Array<AstronautNormal>,
             method: 'GET',
             path: `/astronaut/`,
             query: {
-                'name': name,
                 'date_of_death': dateOfDeath,
-                'nationality': nationality,
-                'date_of_birth': dateOfBirth,
+                'name': name,
                 'status': status,
+                'date_of_birth': dateOfBirth,
+                'nationality': nationality,
                 'agency__abbrev': agencyAbbrev,
                 'agency__name': agencyName,
                 'date_of_birth__gt': dateOfBirthGt,
