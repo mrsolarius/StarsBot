@@ -2,8 +2,6 @@ import {Command, CommandContext, Permission} from "./command";
 import {MessageEmbed} from "discord.js";
 import {LaunchDetailed, LaunchSerializerCommon, LaunchService} from "../models/launchAPI";
 
-const u = undefined
-
 export default class Launch implements Command {
     name = 'launch';
     summary = 'A command to see incoming launch';
@@ -14,8 +12,8 @@ export default class Launch implements Command {
         const args = ctx.msg.content.split(' ')
         if (args.length === 1) {
             try {
-                const upcomingLaunches = await LaunchService.launchUpcomingList(u, u, u, u, u, u, u, u, u, u, u, u, u, u, u, u, u, 1);
-                const nextLaunch = await LaunchService.launchUpcomingRead(upcomingLaunches.results[0].id as string);
+                const upcomingLaunches = await LaunchService.launchUpcomingList({limit:1});
+                const nextLaunch = await LaunchService.launchUpcomingRead({id:upcomingLaunches.results[0].id as string});
                 return ctx.channel.send(Launch.launchFormatter(nextLaunch))
             } catch (e) {
                 return ctx.channel.send(`> :warning: ${e.message}`)
@@ -24,7 +22,7 @@ export default class Launch implements Command {
         switch (args[1]) {
             case 'list':
                 try {
-                    const upcomingLaunches = await LaunchService.launchUpcomingList(u, u, u, u, u, u, u, u, u, u, u, u, u, u, u, u, u, 15);
+                    const upcomingLaunches = await LaunchService.launchUpcomingList({limit:15});
                     return ctx.channel.send(Launch.launchList(upcomingLaunches.results))
                 } catch (e) {
                     return ctx.channel.send(`> :warning: ${e.message}`)
@@ -92,7 +90,7 @@ export default class Launch implements Command {
             (nextLaunch.mission?.type !== undefined ? `Type : ${nextLaunch.mission?.type}\n` : '') +
             (nextLaunch.mission?.orbit !== undefined ? `Orbit : ${nextLaunch.mission?.orbit.name}\n` : '') +
             (nextLaunch.rocket?.configuration?.launch_cost !== undefined ? `Launch Cost : ${nextLaunch.rocket.configuration.launch_cost}\n` : ''),
-            true)
+            false)
 
         if (nextLaunch.image != null) me.setImage(nextLaunch.image)
         if (nextLaunch.launch_service_provider?.logo_url != null) me.setThumbnail(nextLaunch.launch_service_provider.logo_url)

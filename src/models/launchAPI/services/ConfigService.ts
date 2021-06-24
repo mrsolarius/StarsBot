@@ -25,19 +25,24 @@ import { request as __request } from '../core/request';
 export class ConfigService {
 
     /**
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async configAgencytypeList(
+    public static async configAgencytypeList({
+search,
+ordering,
+limit,
+offset,
+}: {
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -57,13 +62,15 @@ results: Array<AgencyType>,
     }
 
     /**
-     * @param id A unique value identifying this agency type.
      * @returns AgencyType 
      * @throws ApiError
      */
-    public static async configAgencytypeRead(
+    public static async configAgencytypeRead({
+id,
+}: {
+/** A unique value identifying this agency type. **/
 id: number,
-): Promise<AgencyType> {
+}): Promise<AgencyType> {
         const result = await __request({
             method: 'GET',
             path: `/config/agencytype/${id}/`,
@@ -72,19 +79,24 @@ id: number,
     }
 
     /**
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async configAstronautroleList(
+    public static async configAstronautroleList({
+search,
+ordering,
+limit,
+offset,
+}: {
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -104,13 +116,15 @@ results: Array<AstronautRole>,
     }
 
     /**
-     * @param id A unique integer value identifying this Astronaut Role.
      * @returns AstronautRole 
      * @throws ApiError
      */
-    public static async configAstronautroleRead(
+    public static async configAstronautroleRead({
+id,
+}: {
+/** A unique integer value identifying this Astronaut Role. **/
 id: number,
-): Promise<AstronautRole> {
+}): Promise<AstronautRole> {
         const result = await __request({
             method: 'GET',
             path: `/config/astronautrole/${id}/`,
@@ -119,19 +133,24 @@ id: number,
     }
 
     /**
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async configAstronautstatusList(
+    public static async configAstronautstatusList({
+search,
+ordering,
+limit,
+offset,
+}: {
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -151,13 +170,15 @@ results: Array<AstronautStatus>,
     }
 
     /**
-     * @param id A unique integer value identifying this Astronaut Status.
      * @returns AstronautStatus 
      * @throws ApiError
      */
-    public static async configAstronautstatusRead(
+    public static async configAstronautstatusRead({
+id,
+}: {
+/** A unique integer value identifying this Astronaut Status. **/
 id: number,
-): Promise<AstronautStatus> {
+}): Promise<AstronautStatus> {
         const result = await __request({
             method: 'GET',
             path: `/config/astronautstatus/${id}/`,
@@ -166,19 +187,24 @@ id: number,
     }
 
     /**
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async configAstronauttypeList(
+    public static async configAstronauttypeList({
+search,
+ordering,
+limit,
+offset,
+}: {
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -198,13 +224,15 @@ results: Array<AstronautType>,
     }
 
     /**
-     * @param id A unique integer value identifying this Astronaut Type.
      * @returns AstronautType 
      * @throws ApiError
      */
-    public static async configAstronauttypeRead(
+    public static async configAstronauttypeRead({
+id,
+}: {
+/** A unique integer value identifying this Astronaut Type. **/
 id: number,
-): Promise<AstronautType> {
+}): Promise<AstronautType> {
         const result = await __request({
             method: 'GET',
             path: `/config/astronauttype/${id}/`,
@@ -213,19 +241,24 @@ id: number,
     }
 
     /**
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async configDockinglocationList(
+    public static async configDockinglocationList({
+search,
+ordering,
+limit,
+offset,
+}: {
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -245,13 +278,15 @@ results: Array<DockingLocation>,
     }
 
     /**
-     * @param id A unique integer value identifying this Docking Location.
      * @returns DockingLocation 
      * @throws ApiError
      */
-    public static async configDockinglocationRead(
+    public static async configDockinglocationRead({
+id,
+}: {
+/** A unique integer value identifying this Docking Location. **/
 id: number,
-): Promise<DockingLocation> {
+}): Promise<DockingLocation> {
         const result = await __request({
             method: 'GET',
             path: `/config/dockinglocation/${id}/`,
@@ -260,19 +295,24 @@ id: number,
     }
 
     /**
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async configEventtypeList(
+    public static async configEventtypeList({
+search,
+ordering,
+limit,
+offset,
+}: {
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -292,13 +332,15 @@ results: Array<EventType>,
     }
 
     /**
-     * @param id A unique value identifying this event type.
      * @returns EventType 
      * @throws ApiError
      */
-    public static async configEventtypeRead(
+    public static async configEventtypeRead({
+id,
+}: {
+/** A unique value identifying this event type. **/
 id: number,
-): Promise<EventType> {
+}): Promise<EventType> {
         const result = await __request({
             method: 'GET',
             path: `/config/eventtype/${id}/`,
@@ -307,19 +349,24 @@ id: number,
     }
 
     /**
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async configFirststagetypeList(
+    public static async configFirststagetypeList({
+search,
+ordering,
+limit,
+offset,
+}: {
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -339,13 +386,15 @@ results: Array<FirstStageType>,
     }
 
     /**
-     * @param id A unique value identifying this first stage type.
      * @returns FirstStageType 
      * @throws ApiError
      */
-    public static async configFirststagetypeRead(
+    public static async configFirststagetypeRead({
+id,
+}: {
+/** A unique value identifying this first stage type. **/
 id: number,
-): Promise<FirstStageType> {
+}): Promise<FirstStageType> {
         const result = await __request({
             method: 'GET',
             path: `/config/firststagetype/${id}/`,
@@ -354,19 +403,24 @@ id: number,
     }
 
     /**
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async configLandinglocationList(
+    public static async configLandinglocationList({
+search,
+ordering,
+limit,
+offset,
+}: {
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -386,13 +440,15 @@ results: Array<LandingLocation>,
     }
 
     /**
-     * @param id A unique integer value identifying this landing location.
      * @returns LandingLocation 
      * @throws ApiError
      */
-    public static async configLandinglocationRead(
+    public static async configLandinglocationRead({
+id,
+}: {
+/** A unique integer value identifying this landing location. **/
 id: number,
-): Promise<LandingLocation> {
+}): Promise<LandingLocation> {
         const result = await __request({
             method: 'GET',
             path: `/config/landinglocation/${id}/`,
@@ -402,21 +458,22 @@ id: number,
 
     /**
      * API endpoint that allows Launcher Configurations to be viewed.
-     * @param family 
-     * @param name 
-     * @param manufacturer 
-     * @param fullName 
-     * @param active 
-     * @param reusable 
-     * @param program 
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async configLauncherList(
+    public static async configLauncherList({
+family,
+name,
+manufacturer,
+fullName,
+active,
+reusable,
+program,
+search,
+ordering,
+limit,
+offset,
+}: {
 family?: string,
 name?: string,
 manufacturer?: string,
@@ -424,11 +481,15 @@ fullName?: string,
 active?: string,
 reusable?: string,
 program?: string,
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -456,13 +517,15 @@ results: Array<LauncherConfig>,
 
     /**
      * API endpoint that allows Launcher Configurations to be viewed.
-     * @param id A unique integer value identifying this Launcher Configuration.
      * @returns LauncherConfigDetail 
      * @throws ApiError
      */
-    public static async configLauncherRead(
+    public static async configLauncherRead({
+id,
+}: {
+/** A unique integer value identifying this Launcher Configuration. **/
 id: number,
-): Promise<LauncherConfigDetail> {
+}): Promise<LauncherConfigDetail> {
         const result = await __request({
             method: 'GET',
             path: `/config/launcher/${id}/`,
@@ -471,19 +534,24 @@ id: number,
     }
 
     /**
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async configLaunchstatusList(
+    public static async configLaunchstatusList({
+search,
+ordering,
+limit,
+offset,
+}: {
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -503,13 +571,15 @@ results: Array<LaunchStatus>,
     }
 
     /**
-     * @param id A unique value identifying this Launch Status.
      * @returns LaunchStatus 
      * @throws ApiError
      */
-    public static async configLaunchstatusRead(
+    public static async configLaunchstatusRead({
+id,
+}: {
+/** A unique value identifying this Launch Status. **/
 id: number,
-): Promise<LaunchStatus> {
+}): Promise<LaunchStatus> {
         const result = await __request({
             method: 'GET',
             path: `/config/launchstatus/${id}/`,
@@ -518,19 +588,24 @@ id: number,
     }
 
     /**
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async configMissiontypeList(
+    public static async configMissiontypeList({
+search,
+ordering,
+limit,
+offset,
+}: {
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -550,13 +625,15 @@ results: Array<MissionType>,
     }
 
     /**
-     * @param id A unique value identifying this mission type.
      * @returns MissionType 
      * @throws ApiError
      */
-    public static async configMissiontypeRead(
+    public static async configMissiontypeRead({
+id,
+}: {
+/** A unique value identifying this mission type. **/
 id: number,
-): Promise<MissionType> {
+}): Promise<MissionType> {
         const result = await __request({
             method: 'GET',
             path: `/config/missiontype/${id}/`,
@@ -565,19 +642,24 @@ id: number,
     }
 
     /**
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async configNoticetypeList(
+    public static async configNoticetypeList({
+search,
+ordering,
+limit,
+offset,
+}: {
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -597,13 +679,15 @@ results: Array<NoticeType>,
     }
 
     /**
-     * @param id A unique integer value identifying this Notices Type.
      * @returns NoticeType 
      * @throws ApiError
      */
-    public static async configNoticetypeRead(
+    public static async configNoticetypeRead({
+id,
+}: {
+/** A unique integer value identifying this Notices Type. **/
 id: number,
-): Promise<NoticeType> {
+}): Promise<NoticeType> {
         const result = await __request({
             method: 'GET',
             path: `/config/noticetype/${id}/`,
@@ -612,19 +696,24 @@ id: number,
     }
 
     /**
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async configOrbitList(
+    public static async configOrbitList({
+search,
+ordering,
+limit,
+offset,
+}: {
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -644,13 +733,15 @@ results: Array<Orbit>,
     }
 
     /**
-     * @param id A unique integer value identifying this Orbit.
      * @returns Orbit 
      * @throws ApiError
      */
-    public static async configOrbitRead(
+    public static async configOrbitRead({
+id,
+}: {
+/** A unique integer value identifying this Orbit. **/
 id: number,
-): Promise<Orbit> {
+}): Promise<Orbit> {
         const result = await __request({
             method: 'GET',
             path: `/config/orbit/${id}/`,
@@ -659,19 +750,24 @@ id: number,
     }
 
     /**
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async configRoadclosurestatusList(
+    public static async configRoadclosurestatusList({
+search,
+ordering,
+limit,
+offset,
+}: {
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -691,13 +787,15 @@ results: Array<RoadClosureStatus>,
     }
 
     /**
-     * @param id A unique integer value identifying this Road Closure Type.
      * @returns RoadClosureStatus 
      * @throws ApiError
      */
-    public static async configRoadclosurestatusRead(
+    public static async configRoadclosurestatusRead({
+id,
+}: {
+/** A unique integer value identifying this Road Closure Type. **/
 id: number,
-): Promise<RoadClosureStatus> {
+}): Promise<RoadClosureStatus> {
         const result = await __request({
             method: 'GET',
             path: `/config/roadclosurestatus/${id}/`,
@@ -707,27 +805,32 @@ id: number,
 
     /**
      * API endpoint that allows Spacecraft Configs to be viewed.
-     * @param name 
-     * @param manufacturer 
-     * @param inUse 
-     * @param humanRated 
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async configSpacecraftList(
+    public static async configSpacecraftList({
+name,
+manufacturer,
+inUse,
+humanRated,
+search,
+ordering,
+limit,
+offset,
+}: {
 name?: string,
 manufacturer?: string,
 inUse?: string,
 humanRated?: string,
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -752,13 +855,15 @@ results: Array<SpacecraftConfiguration>,
 
     /**
      * API endpoint that allows Spacecraft Configs to be viewed.
-     * @param id A unique integer value identifying this Spacecraft Configuration.
      * @returns SpacecraftConfigurationDetail 
      * @throws ApiError
      */
-    public static async configSpacecraftRead(
+    public static async configSpacecraftRead({
+id,
+}: {
+/** A unique integer value identifying this Spacecraft Configuration. **/
 id: number,
-): Promise<SpacecraftConfigurationDetail> {
+}): Promise<SpacecraftConfigurationDetail> {
         const result = await __request({
             method: 'GET',
             path: `/config/spacecraft/${id}/`,
@@ -767,19 +872,24 @@ id: number,
     }
 
     /**
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async configSpacecraftstatusList(
+    public static async configSpacecraftstatusList({
+search,
+ordering,
+limit,
+offset,
+}: {
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -799,13 +909,15 @@ results: Array<SpacecraftStatus>,
     }
 
     /**
-     * @param id A unique integer value identifying this Spacecraft Status.
      * @returns SpacecraftStatus 
      * @throws ApiError
      */
-    public static async configSpacecraftstatusRead(
+    public static async configSpacecraftstatusRead({
+id,
+}: {
+/** A unique integer value identifying this Spacecraft Status. **/
 id: number,
-): Promise<SpacecraftStatus> {
+}): Promise<SpacecraftStatus> {
         const result = await __request({
             method: 'GET',
             path: `/config/spacecraftstatus/${id}/`,
@@ -814,19 +926,24 @@ id: number,
     }
 
     /**
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async configSpacestationstatusList(
+    public static async configSpacestationstatusList({
+search,
+ordering,
+limit,
+offset,
+}: {
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -846,13 +963,15 @@ results: Array<SpaceStationStatus>,
     }
 
     /**
-     * @param id A unique integer value identifying this Space Station Status.
      * @returns SpaceStationStatus 
      * @throws ApiError
      */
-    public static async configSpacestationstatusRead(
+    public static async configSpacestationstatusRead({
+id,
+}: {
+/** A unique integer value identifying this Space Station Status. **/
 id: number,
-): Promise<SpaceStationStatus> {
+}): Promise<SpaceStationStatus> {
         const result = await __request({
             method: 'GET',
             path: `/config/spacestationstatus/${id}/`,

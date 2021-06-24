@@ -9,29 +9,34 @@ export class LauncherService {
 
     /**
      * API endpoint that allows Launcher instances to be viewed.
-     * @param id 
-     * @param serialNumber 
-     * @param flightProven 
-     * @param launcherConfig 
-     * @param launcherConfigManufacturer 
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async launcherList(
+    public static async launcherList({
+id,
+serialNumber,
+flightProven,
+launcherConfig,
+launcherConfigManufacturer,
+search,
+ordering,
+limit,
+offset,
+}: {
 id?: number,
 serialNumber?: string,
 flightProven?: string,
 launcherConfig?: string,
 launcherConfigManufacturer?: string,
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -57,13 +62,15 @@ results: Array<Launcher>,
 
     /**
      * API endpoint that allows Launcher instances to be viewed.
-     * @param id A unique integer value identifying this Launch Vehicle.
      * @returns LauncherDetail 
      * @throws ApiError
      */
-    public static async launcherRead(
+    public static async launcherRead({
+id,
+}: {
+/** A unique integer value identifying this Launch Vehicle. **/
 id: number,
-): Promise<LauncherDetail> {
+}): Promise<LauncherDetail> {
         const result = await __request({
             method: 'GET',
             path: `/launcher/${id}/`,

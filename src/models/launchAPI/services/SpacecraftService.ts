@@ -12,25 +12,30 @@ export class SpacecraftService {
     /**
      * API endpoint that allows Spacecrafts to be viewed.
  * A Spacecraft is a physically manufactured instance of a Spacecraft Configuration
-     * @param name 
-     * @param status 
-     * @param spacecraftConfig 
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async spacecraftList(
+    public static async spacecraftList({
+name,
+status,
+spacecraftConfig,
+search,
+ordering,
+limit,
+offset,
+}: {
 name?: string,
 status?: string,
 spacecraftConfig?: string,
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -54,17 +59,20 @@ results: Array<Spacecraft>,
 
     /**
      * API endpoint that allows a flight of a specific Spacecraft instances to be viewed.
-     * @param spacecraft 
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async spacecraftFlightList(
+    public static async spacecraftFlightList({
+spacecraft,
+limit,
+offset,
+}: {
 spacecraft?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -84,13 +92,15 @@ results: Array<SpacecraftFlight>,
 
     /**
      * API endpoint that allows a flight of a specific Spacecraft instances to be viewed.
-     * @param id A unique integer value identifying this Spacecraft Flight.
      * @returns SpacecraftFlightDetailed 
      * @throws ApiError
      */
-    public static async spacecraftFlightRead(
+    public static async spacecraftFlightRead({
+id,
+}: {
+/** A unique integer value identifying this Spacecraft Flight. **/
 id: number,
-): Promise<SpacecraftFlightDetailed> {
+}): Promise<SpacecraftFlightDetailed> {
         const result = await __request({
             method: 'GET',
             path: `/spacecraft/flight/${id}/`,
@@ -101,13 +111,15 @@ id: number,
     /**
      * API endpoint that allows Spacecrafts to be viewed.
  * A Spacecraft is a physically manufactured instance of a Spacecraft Configuration
-     * @param id A unique integer value identifying this Spacecraft.
      * @returns SpacecraftDetailed 
      * @throws ApiError
      */
-    public static async spacecraftRead(
+    public static async spacecraftRead({
+id,
+}: {
+/** A unique integer value identifying this Spacecraft. **/
 id: number,
-): Promise<SpacecraftDetailed> {
+}): Promise<SpacecraftDetailed> {
         const result = await __request({
             method: 'GET',
             path: `/spacecraft/${id}/`,

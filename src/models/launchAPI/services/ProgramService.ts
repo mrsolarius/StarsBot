@@ -8,19 +8,24 @@ export class ProgramService {
 
     /**
      * API endpoint that returns Program objects.
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async programList(
+    public static async programList({
+search,
+ordering,
+limit,
+offset,
+}: {
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -41,13 +46,14 @@ results: Array<Program>,
 
     /**
      * API endpoint that returns Program objects.
-     * @param id 
      * @returns Program 
      * @throws ApiError
      */
-    public static async programRead(
+    public static async programRead({
+id,
+}: {
 id: string,
-): Promise<Program> {
+}): Promise<Program> {
         const result = await __request({
             method: 'GET',
             path: `/program/${id}/`,

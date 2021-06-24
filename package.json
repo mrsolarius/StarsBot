@@ -7,7 +7,7 @@
     "test": "ts-mocha test/test.ts",
     "start": "ts-node src/main.ts",
     "dev": "ts-node src/main.ts --trace-warnings --unhandled-rejections=strict",
-    "genOpenAPI": "openapi --client node --input https://ll.thespacedevs.com/2.2.0/swagger?format=openapi --output src/models/launchAPI"
+    "genOpenAPI": "openapi --client node --useOptions --input https://ll.thespacedevs.com/2.2.0/swagger?format=openapi --output src/models/launchAPI"
   },
   "devDependencies": {
     "@types/chai": "^4.2.19",

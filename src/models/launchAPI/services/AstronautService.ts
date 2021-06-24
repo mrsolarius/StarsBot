@@ -9,36 +9,37 @@ export class AstronautService {
 
     /**
      * API endpoint that allows Astronaut to be viewed.
-     * @param dateOfDeath 
-     * @param name 
-     * @param status 
-     * @param dateOfBirth 
-     * @param nationality 
-     * @param agencyAbbrev 
-     * @param agencyName 
-     * @param dateOfBirthGt 
-     * @param dateOfBirthLt 
-     * @param dateOfBirthGte 
-     * @param dateOfBirthLte 
-     * @param dateOfDeathGt 
-     * @param dateOfDeathLt 
-     * @param dateOfDeathGte 
-     * @param dateOfDeathLte 
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async astronautList(
+    public static async astronautList({
+dateOfDeath,
+nationality,
+agencyName,
+name,
+agencyAbbrev,
+status,
+dateOfBirth,
+dateOfBirthGt,
+dateOfBirthLt,
+dateOfBirthGte,
+dateOfBirthLte,
+dateOfDeathGt,
+dateOfDeathLt,
+dateOfDeathGte,
+dateOfDeathLte,
+search,
+ordering,
+limit,
+offset,
+}: {
 dateOfDeath?: string,
+nationality?: string,
+agencyName?: string,
 name?: string,
+agencyAbbrev?: string,
 status?: string,
 dateOfBirth?: string,
-nationality?: string,
-agencyAbbrev?: string,
-agencyName?: string,
 dateOfBirthGt?: string,
 dateOfBirthLt?: string,
 dateOfBirthGte?: string,
@@ -47,11 +48,15 @@ dateOfDeathGt?: string,
 dateOfDeathLt?: string,
 dateOfDeathGte?: string,
 dateOfDeathLte?: string,
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -62,12 +67,12 @@ results: Array<AstronautNormal>,
             path: `/astronaut/`,
             query: {
                 'date_of_death': dateOfDeath,
+                'nationality': nationality,
+                'agency__name': agencyName,
                 'name': name,
+                'agency__abbrev': agencyAbbrev,
                 'status': status,
                 'date_of_birth': dateOfBirth,
-                'nationality': nationality,
-                'agency__abbrev': agencyAbbrev,
-                'agency__name': agencyName,
                 'date_of_birth__gt': dateOfBirthGt,
                 'date_of_birth__lt': dateOfBirthLt,
                 'date_of_birth__gte': dateOfBirthGte,
@@ -87,13 +92,15 @@ results: Array<AstronautNormal>,
 
     /**
      * API endpoint that allows Astronaut to be viewed.
-     * @param id A unique integer value identifying this Astronaut.
      * @returns AstronautDetailed 
      * @throws ApiError
      */
-    public static async astronautRead(
+    public static async astronautRead({
+id,
+}: {
+/** A unique integer value identifying this Astronaut. **/
 id: number,
-): Promise<AstronautDetailed> {
+}): Promise<AstronautDetailed> {
         const result = await __request({
             method: 'GET',
             path: `/astronaut/${id}/`,

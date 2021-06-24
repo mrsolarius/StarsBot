@@ -28,52 +28,53 @@ export class LaunchService {
  * Searches through the launch name, rocket name, launch agency, mission name & spacecraft name.
  *
  * EXAMPLE - ?search=SpaceX
-     * @param name 
-     * @param slug 
-     * @param rocketConfigurationName 
-     * @param rocketConfigurationId 
-     * @param status 
-     * @param rocketSpacecraftflightSpacecraftName 
-     * @param rocketSpacecraftflightSpacecraftNameIcontains 
-     * @param rocketSpacecraftflightSpacecraftId 
-     * @param rocketConfigurationManufacturerName 
-     * @param rocketConfigurationManufacturerNameIcontains 
-     * @param rocketConfigurationFullName 
-     * @param rocketConfigurationFullNameIcontains 
-     * @param missionOrbitName 
-     * @param missionOrbitNameIcontains 
-     * @param netGt 
-     * @param netLt 
-     * @param netGte 
-     * @param netLte 
-     * @param windowStartGt 
-     * @param windowStartLt 
-     * @param windowStartGte 
-     * @param windowStartLte 
-     * @param windowEndGt 
-     * @param windowEndLt 
-     * @param windowEndGte 
-     * @param windowEndLte 
-     * @param lastUpdatedGte 
-     * @param lastUpdatedLte 
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
-     * @param locationIds Filter by a comma-separated list of location ID's.
-     * @param lspIds Filter by a comma-separated list of launch service providers ID's.
-     * @param isCrewed Filter by launches with crew assigned.
-     * @param includeSuborbital Include sub-orbital launches.
-     * @param serialNumber Filter by a SpaceX First Stage core serial number. (Example: B1051)
-     * @param lspName Filter by a Launch Service Provider name.
-     * @param lspId Filter by a Launch Service Provider name.
-     * @param launcherConfigId Filter by a Launcher Config ID.
-     * @param spacecraftConfigIds Filter by a comma-separated list of spacecraft config ID's.
-     * @param related Include related agencies launches. Useful for historical launches from companies that have had mergers.
      * @returns any 
      * @throws ApiError
      */
-    public static async launchList(
+    public static async launchList({
+name,
+slug,
+rocketConfigurationName,
+rocketConfigurationId,
+status,
+rocketSpacecraftflightSpacecraftName,
+rocketSpacecraftflightSpacecraftNameIcontains,
+rocketSpacecraftflightSpacecraftId,
+rocketConfigurationManufacturerName,
+rocketConfigurationManufacturerNameIcontains,
+rocketConfigurationFullName,
+rocketConfigurationFullNameIcontains,
+missionOrbitName,
+missionOrbitNameIcontains,
+netGt,
+netLt,
+netGte,
+netLte,
+windowStartGt,
+windowStartLt,
+windowStartGte,
+windowStartLte,
+windowEndGt,
+windowEndLt,
+windowEndGte,
+windowEndLte,
+lastUpdatedGte,
+lastUpdatedLte,
+search,
+ordering,
+limit,
+offset,
+locationIds,
+lspIds,
+isCrewed = false,
+includeSuborbital = true,
+serialNumber,
+lspName,
+lspId,
+launcherConfigId,
+spacecraftConfigIds,
+related = false,
+}: {
 name?: string,
 slug?: string,
 rocketConfigurationName?: string,
@@ -102,21 +103,35 @@ windowEndGte?: string,
 windowEndLte?: string,
 lastUpdatedGte?: string,
 lastUpdatedLte?: string,
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
+/** Filter by a comma-separated list of location ID's. **/
 locationIds?: Array<number>,
+/** Filter by a comma-separated list of launch service providers ID's. **/
 lspIds?: Array<number>,
-isCrewed: boolean = false,
-includeSuborbital: boolean = true,
+/** Filter by launches with crew assigned. **/
+isCrewed?: boolean,
+/** Include sub-orbital launches. **/
+includeSuborbital?: boolean,
+/** Filter by a SpaceX First Stage core serial number. (Example: B1051) **/
 serialNumber?: string,
+/** Filter by a Launch Service Provider name. **/
 lspName?: string,
+/** Filter by a Launch Service Provider name. **/
 lspId?: number,
+/** Filter by a Launcher Config ID. **/
 launcherConfigId?: number,
+/** Filter by a comma-separated list of spacecraft config ID's. **/
 spacecraftConfigIds?: Array<number>,
-related: boolean = false,
-): Promise<{
+/** Include related agencies launches. Useful for historical launches from companies that have had mergers. **/
+related?: boolean,
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -190,39 +205,40 @@ results: Array<LaunchSerializerCommon>,
  * SEARCH
  * Searches through the launch name, rocket name, launch agency and mission name.
  * EXAMPLE - ?search=SpaceX
-     * @param name 
-     * @param slug 
-     * @param rocketConfigurationName 
-     * @param rocketConfigurationId 
-     * @param status 
-     * @param rocketSpacecraftflightSpacecraftName 
-     * @param rocketSpacecraftflightSpacecraftNameIcontains 
-     * @param rocketSpacecraftflightSpacecraftId 
-     * @param rocketConfigurationManufacturerName 
-     * @param rocketConfigurationManufacturerNameIcontains 
-     * @param rocketConfigurationFullName 
-     * @param rocketConfigurationFullNameIcontains 
-     * @param missionOrbitName 
-     * @param missionOrbitNameIcontains 
-     * @param program 
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
-     * @param locationIds Filter by a comma-separated list of location ID's.
-     * @param lspIds Filter by a comma-separated list of launch service providers ID's.
-     * @param isCrewed Filter by launches with crew assigned.
-     * @param includeSuborbital Include sub-orbital launches.
-     * @param serialNumber Filter by a SpaceX First Stage core serial number. (Example: B1051)
-     * @param lspName Filter by a Launch Service Provider name.
-     * @param lspId Filter by a Launch Service Provider name.
-     * @param launcherConfigId Filter by a Launcher Config ID.
-     * @param spacecraftConfigIds Filter by a comma-separated list of spacecraft config ID's.
-     * @param related Include related agencies launches. Useful for historical launches from companies that have had mergers.
      * @returns any 
      * @throws ApiError
      */
-    public static async launchPreviousList(
+    public static async launchPreviousList({
+name,
+slug,
+rocketConfigurationName,
+rocketConfigurationId,
+status,
+rocketSpacecraftflightSpacecraftName,
+rocketSpacecraftflightSpacecraftNameIcontains,
+rocketSpacecraftflightSpacecraftId,
+rocketConfigurationManufacturerName,
+rocketConfigurationManufacturerNameIcontains,
+rocketConfigurationFullName,
+rocketConfigurationFullNameIcontains,
+missionOrbitName,
+missionOrbitNameIcontains,
+program,
+search,
+ordering,
+limit,
+offset,
+locationIds,
+lspIds,
+isCrewed = false,
+includeSuborbital = true,
+serialNumber,
+lspName,
+lspId,
+launcherConfigId,
+spacecraftConfigIds,
+related = false,
+}: {
 name?: string,
 slug?: string,
 rocketConfigurationName?: string,
@@ -238,21 +254,35 @@ rocketConfigurationFullNameIcontains?: string,
 missionOrbitName?: string,
 missionOrbitNameIcontains?: string,
 program?: string,
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
+/** Filter by a comma-separated list of location ID's. **/
 locationIds?: Array<number>,
+/** Filter by a comma-separated list of launch service providers ID's. **/
 lspIds?: Array<number>,
-isCrewed: boolean = false,
-includeSuborbital: boolean = true,
+/** Filter by launches with crew assigned. **/
+isCrewed?: boolean,
+/** Include sub-orbital launches. **/
+includeSuborbital?: boolean,
+/** Filter by a SpaceX First Stage core serial number. (Example: B1051) **/
 serialNumber?: string,
+/** Filter by a Launch Service Provider name. **/
 lspName?: string,
+/** Filter by a Launch Service Provider name. **/
 lspId?: number,
+/** Filter by a Launcher Config ID. **/
 launcherConfigId?: number,
+/** Filter by a comma-separated list of spacecraft config ID's. **/
 spacecraftConfigIds?: Array<number>,
-related: boolean = false,
-): Promise<{
+/** Include related agencies launches. Useful for historical launches from companies that have had mergers. **/
+related?: boolean,
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -313,13 +343,14 @@ results: Array<LaunchSerializerCommon>,
  * SEARCH
  * Searches through the launch name, rocket name, launch agency and mission name.
  * EXAMPLE - ?search=SpaceX
-     * @param id 
      * @returns LaunchDetailed 
      * @throws ApiError
      */
-    public static async launchPreviousRead(
+    public static async launchPreviousRead({
+id,
+}: {
 id: string,
-): Promise<LaunchDetailed> {
+}): Promise<LaunchDetailed> {
         const result = await __request({
             method: 'GET',
             path: `/launch/previous/${id}/`,
@@ -345,40 +376,41 @@ id: string,
  * SEARCH
  * Searches through the launch name, rocket name, launch agency and mission name.
  * EXAMPLE - ?search=SpaceX
-     * @param name 
-     * @param slug 
-     * @param rocketConfigurationName 
-     * @param rocketConfigurationId 
-     * @param status 
-     * @param rocketSpacecraftflightSpacecraftName 
-     * @param rocketSpacecraftflightSpacecraftNameIcontains 
-     * @param rocketSpacecraftflightSpacecraftId 
-     * @param rocketConfigurationManufacturerName 
-     * @param rocketConfigurationManufacturerNameIcontains 
-     * @param rocketConfigurationFullName 
-     * @param rocketConfigurationFullNameIcontains 
-     * @param missionOrbitName 
-     * @param missionOrbitNameIcontains 
-     * @param program 
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
-     * @param locationIds Filter by a comma-separated list of location ID's.
-     * @param lspIds Filter by a comma-separated list of launch service providers ID's.
-     * @param isCrewed Filter by launches with crew assigned.
-     * @param includeSuborbital Include sub-orbital launches.
-     * @param serialNumber Filter by a SpaceX First Stage core serial number. (Example: B1051)
-     * @param lspName Filter by a Launch Service Provider name.
-     * @param lspId Filter by a Launch Service Provider name.
-     * @param launcherConfigId Filter by a Launcher Config ID.
-     * @param spacecraftConfigIds Filter by a comma-separated list of spacecraft config ID's.
-     * @param related Include related agencies launches. Useful for historical launches from companies that have had mergers.
-     * @param hideRecentPrevious Hide launches in previous 24 hours from response.
      * @returns any 
      * @throws ApiError
      */
-    public static async launchUpcomingList(
+    public static async launchUpcomingList({
+name,
+slug,
+rocketConfigurationName,
+rocketConfigurationId,
+status,
+rocketSpacecraftflightSpacecraftName,
+rocketSpacecraftflightSpacecraftNameIcontains,
+rocketSpacecraftflightSpacecraftId,
+rocketConfigurationManufacturerName,
+rocketConfigurationManufacturerNameIcontains,
+rocketConfigurationFullName,
+rocketConfigurationFullNameIcontains,
+missionOrbitName,
+missionOrbitNameIcontains,
+program,
+search,
+ordering,
+limit,
+offset,
+locationIds,
+lspIds,
+isCrewed = false,
+includeSuborbital = true,
+serialNumber,
+lspName,
+lspId,
+launcherConfigId,
+spacecraftConfigIds,
+related = false,
+hideRecentPrevious = false,
+}: {
 name?: string,
 slug?: string,
 rocketConfigurationName?: string,
@@ -394,22 +426,37 @@ rocketConfigurationFullNameIcontains?: string,
 missionOrbitName?: string,
 missionOrbitNameIcontains?: string,
 program?: string,
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
+/** Filter by a comma-separated list of location ID's. **/
 locationIds?: Array<number>,
+/** Filter by a comma-separated list of launch service providers ID's. **/
 lspIds?: Array<number>,
-isCrewed: boolean = false,
-includeSuborbital: boolean = true,
+/** Filter by launches with crew assigned. **/
+isCrewed?: boolean,
+/** Include sub-orbital launches. **/
+includeSuborbital?: boolean,
+/** Filter by a SpaceX First Stage core serial number. (Example: B1051) **/
 serialNumber?: string,
+/** Filter by a Launch Service Provider name. **/
 lspName?: string,
+/** Filter by a Launch Service Provider name. **/
 lspId?: number,
+/** Filter by a Launcher Config ID. **/
 launcherConfigId?: number,
+/** Filter by a comma-separated list of spacecraft config ID's. **/
 spacecraftConfigIds?: Array<number>,
-related: boolean = false,
-hideRecentPrevious: boolean = false,
-): Promise<{
+/** Include related agencies launches. Useful for historical launches from companies that have had mergers. **/
+related?: boolean,
+/** Hide launches in previous 24 hours from response. **/
+hideRecentPrevious?: boolean,
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -472,13 +519,14 @@ results: Array<LaunchSerializerCommon>,
  * SEARCH
  * Searches through the launch name, rocket name, launch agency and mission name.
  * EXAMPLE - ?search=SpaceX
-     * @param id 
      * @returns LaunchDetailed 
      * @throws ApiError
      */
-    public static async launchUpcomingRead(
+    public static async launchUpcomingRead({
+id,
+}: {
 id: string,
-): Promise<LaunchDetailed> {
+}): Promise<LaunchDetailed> {
         const result = await __request({
             method: 'GET',
             path: `/launch/upcoming/${id}/`,
@@ -507,13 +555,14 @@ id: string,
  * Searches through the launch name, rocket name, launch agency, mission name & spacecraft name.
  *
  * EXAMPLE - ?search=SpaceX
-     * @param id 
      * @returns LaunchDetailed 
      * @throws ApiError
      */
-    public static async launchRead(
+    public static async launchRead({
+id,
+}: {
 id: string,
-): Promise<LaunchDetailed> {
+}): Promise<LaunchDetailed> {
         const result = await __request({
             method: 'GET',
             path: `/launch/${id}/`,

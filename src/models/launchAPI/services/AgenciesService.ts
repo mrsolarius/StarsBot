@@ -9,25 +9,30 @@ export class AgenciesService {
 
     /**
      * API endpoint that allows Agencies to be viewed.
-     * @param featured 
-     * @param agencyType 
-     * @param countryCode 
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async agenciesList(
+    public static async agenciesList({
+featured,
+agencyType,
+countryCode,
+search,
+ordering,
+limit,
+offset,
+}: {
 featured?: string,
 agencyType?: string,
 countryCode?: string,
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -51,13 +56,14 @@ results: Array<Agency>,
 
     /**
      * API endpoint that allows Agencies to be viewed.
-     * @param id 
      * @returns AgencySerializerDetailed 
      * @throws ApiError
      */
-    public static async agenciesRead(
+    public static async agenciesRead({
+id,
+}: {
 id: string,
-): Promise<AgencySerializerDetailed> {
+}): Promise<AgencySerializerDetailed> {
         const result = await __request({
             method: 'GET',
             path: `/agencies/${id}/`,

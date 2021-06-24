@@ -8,27 +8,32 @@ export class UpdatesService {
 
     /**
      * API endpoint that allows Updates to be viewed.
-     * @param createdOn 
-     * @param launch 
-     * @param program 
-     * @param launchLaunchServiceProvider 
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async updatesList(
+    public static async updatesList({
+createdOn,
+launch,
+program,
+launchLaunchServiceProvider,
+search,
+ordering,
+limit,
+offset,
+}: {
 createdOn?: string,
 launch?: string,
 program?: string,
 launchLaunchServiceProvider?: string,
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -53,13 +58,14 @@ results: Array<Update>,
 
     /**
      * API endpoint that allows Updates to be viewed.
-     * @param id 
      * @returns Update 
      * @throws ApiError
      */
-    public static async updatesRead(
+    public static async updatesRead({
+id,
+}: {
 id: string,
-): Promise<Update> {
+}): Promise<Update> {
         const result = await __request({
             method: 'GET',
             path: `/updates/${id}/`,

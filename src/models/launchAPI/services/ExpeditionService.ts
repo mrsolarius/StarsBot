@@ -9,30 +9,31 @@ export class ExpeditionService {
 
     /**
      * API endpoint that allows Expeditions to be viewed.
-     * @param spaceStation 
-     * @param name 
-     * @param crewAstronaut 
-     * @param crewAstronautAgency 
-     * @param startGt 
-     * @param startLt 
-     * @param startGte 
-     * @param startLte 
-     * @param endGt 
-     * @param endLt 
-     * @param endGte 
-     * @param endLte 
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async expeditionList(
-spaceStation?: string,
-name?: string,
-crewAstronaut?: string,
+    public static async expeditionList({
+crewAstronautAgency,
+name,
+spaceStation,
+crewAstronaut,
+startGt,
+startLt,
+startGte,
+startLte,
+endGt,
+endLt,
+endGte,
+endLte,
+search,
+ordering,
+limit,
+offset,
+}: {
 crewAstronautAgency?: string,
+name?: string,
+spaceStation?: string,
+crewAstronaut?: string,
 startGt?: string,
 startLt?: string,
 startGte?: string,
@@ -41,11 +42,15 @@ endGt?: string,
 endLt?: string,
 endGte?: string,
 endLte?: string,
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -55,10 +60,10 @@ results: Array<Expedition>,
             method: 'GET',
             path: `/expedition/`,
             query: {
-                'space_station': spaceStation,
-                'name': name,
-                'crew__astronaut': crewAstronaut,
                 'crew__astronaut__agency': crewAstronautAgency,
+                'name': name,
+                'space_station': spaceStation,
+                'crew__astronaut': crewAstronaut,
                 'start__gt': startGt,
                 'start__lt': startLt,
                 'start__gte': startGte,
@@ -78,13 +83,15 @@ results: Array<Expedition>,
 
     /**
      * API endpoint that allows Expeditions to be viewed.
-     * @param id A unique integer value identifying this expedition.
      * @returns ExpeditionDetail 
      * @throws ApiError
      */
-    public static async expeditionRead(
+    public static async expeditionRead({
+id,
+}: {
+/** A unique integer value identifying this expedition. **/
 id: number,
-): Promise<ExpeditionDetail> {
+}): Promise<ExpeditionDetail> {
         const result = await __request({
             method: 'GET',
             path: `/expedition/${id}/`,

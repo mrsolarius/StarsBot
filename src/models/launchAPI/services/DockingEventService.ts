@@ -9,21 +9,22 @@ export class DockingEventService {
 
     /**
      * API endpoint that allows Docking Events to be viewed.
-     * @param spaceStationId 
-     * @param dockingLocationId 
-     * @param flightVehicleId 
-     * @param dockingGt 
-     * @param dockingLt 
-     * @param dockingGte 
-     * @param dockingLte 
-     * @param search A search term.
-     * @param ordering Which field to use when ordering the results.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async dockingEventList(
+    public static async dockingEventList({
+spaceStationId,
+dockingLocationId,
+flightVehicleId,
+dockingGt,
+dockingLt,
+dockingGte,
+dockingLte,
+search,
+ordering,
+limit,
+offset,
+}: {
 spaceStationId?: number,
 dockingLocationId?: number,
 flightVehicleId?: number,
@@ -31,11 +32,15 @@ dockingGt?: string,
 dockingLt?: string,
 dockingGte?: string,
 dockingLte?: string,
+/** A search term. **/
 search?: string,
+/** Which field to use when ordering the results. **/
 ordering?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -63,13 +68,15 @@ results: Array<DockingEvent>,
 
     /**
      * API endpoint that allows Docking Events to be viewed.
-     * @param id A unique integer value identifying this docking event.
      * @returns DockingEventDetailed 
      * @throws ApiError
      */
-    public static async dockingEventRead(
+    public static async dockingEventRead({
+id,
+}: {
+/** A unique integer value identifying this docking event. **/
 id: number,
-): Promise<DockingEventDetailed> {
+}): Promise<DockingEventDetailed> {
         const result = await __request({
             method: 'GET',
             path: `/docking_event/${id}/`,

@@ -8,25 +8,29 @@ export class EventService {
 
     /**
      * API endpoint that allows all Events to be viewed.
-     * @param slug 
-     * @param id 
-     * @param type 
-     * @param program 
-     * @param search A search term.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async eventList(
+    public static async eventList({
+slug,
+id,
+type,
+program,
+search,
+limit,
+offset,
+}: {
 slug?: string,
 id?: number,
 type?: string,
 program?: string,
+/** A search term. **/
 search?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -50,21 +54,25 @@ results: Array<Events>,
 
     /**
      * API endpoint that allows past Events to be viewed.
-     * @param type 
-     * @param program 
-     * @param search A search term.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async eventPreviousList(
+    public static async eventPreviousList({
+type,
+program,
+search,
+limit,
+offset,
+}: {
 type?: string,
 program?: string,
+/** A search term. **/
 search?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -86,13 +94,14 @@ results: Array<Events>,
 
     /**
      * API endpoint that allows past Events to be viewed.
-     * @param id 
      * @returns Events 
      * @throws ApiError
      */
-    public static async eventPreviousRead(
+    public static async eventPreviousRead({
+id,
+}: {
 id: string,
-): Promise<Events> {
+}): Promise<Events> {
         const result = await __request({
             method: 'GET',
             path: `/event/previous/${id}/`,
@@ -102,21 +111,25 @@ id: string,
 
     /**
      * API endpoint that allows future Events to be viewed.
-     * @param type 
-     * @param program 
-     * @param search A search term.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async eventUpcomingList(
+    public static async eventUpcomingList({
+type,
+program,
+search,
+limit,
+offset,
+}: {
 type?: string,
 program?: string,
+/** A search term. **/
 search?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -138,13 +151,14 @@ results: Array<Events>,
 
     /**
      * API endpoint that allows future Events to be viewed.
-     * @param id 
      * @returns Events 
      * @throws ApiError
      */
-    public static async eventUpcomingRead(
+    public static async eventUpcomingRead({
+id,
+}: {
 id: string,
-): Promise<Events> {
+}): Promise<Events> {
         const result = await __request({
             method: 'GET',
             path: `/event/upcoming/${id}/`,
@@ -154,13 +168,15 @@ id: string,
 
     /**
      * API endpoint that allows all Events to be viewed.
-     * @param id A unique integer value identifying this Event.
      * @returns Events 
      * @throws ApiError
      */
-    public static async eventRead(
+    public static async eventRead({
+id,
+}: {
+/** A unique integer value identifying this Event. **/
 id: number,
-): Promise<Events> {
+}): Promise<Events> {
         const result = await __request({
             method: 'GET',
             path: `/event/${id}/`,

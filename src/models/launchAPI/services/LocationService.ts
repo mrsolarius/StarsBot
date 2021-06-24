@@ -9,25 +9,29 @@ export class LocationService {
 
     /**
      * API endpoint that allows Location instances to be viewed.
-     * @param name 
-     * @param countryCode 
-     * @param id 
-     * @param padLocationId 
-     * @param search A search term.
-     * @param limit Number of results to return per page.
-     * @param offset The initial index from which to return the results.
      * @returns any 
      * @throws ApiError
      */
-    public static async locationList(
+    public static async locationList({
+name,
+countryCode,
+id,
+padLocationId,
+search,
+limit,
+offset,
+}: {
 name?: string,
 countryCode?: string,
 id?: number,
 padLocationId?: string,
+/** A search term. **/
 search?: string,
+/** Number of results to return per page. **/
 limit?: number,
+/** The initial index from which to return the results. **/
 offset?: number,
-): Promise<{
+}): Promise<{
 count: number,
 next?: string | null,
 previous?: string | null,
@@ -51,13 +55,15 @@ results: Array<Location>,
 
     /**
      * API endpoint that allows Location instances to be viewed.
-     * @param id A unique integer value identifying this Location.
      * @returns LocationDetail 
      * @throws ApiError
      */
-    public static async locationRead(
+    public static async locationRead({
+id,
+}: {
+/** A unique integer value identifying this Location. **/
 id: number,
-): Promise<LocationDetail> {
+}): Promise<LocationDetail> {
         const result = await __request({
             method: 'GET',
             path: `/location/${id}/`,
