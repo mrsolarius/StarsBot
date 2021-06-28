@@ -1,6 +1,6 @@
 import {DiscordPrompt, MessageVisual, Rejection, VisualGenerator} from "discord.js-prompts";
 import {SearchData} from "./type";
-import {launchList} from "../../LaunchEmbedFormater";
+import {launchList} from "../../launchEmbedFormater";
 import {Message} from "discord.js";
 
 export const askNumberVisual : VisualGenerator<SearchData> = async (data:SearchData)=>{

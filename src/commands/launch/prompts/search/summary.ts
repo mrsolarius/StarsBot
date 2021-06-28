@@ -1,6 +1,6 @@
 import {DiscordPrompt, MessageVisual, VisualGenerator} from "discord.js-prompts";
 import {SearchData} from "./type";
-import {launchFormatter} from "../../LaunchEmbedFormater";
+import {launchFormatter} from "../../launchEmbedFormater";
 import {LaunchService} from "../../../../models/launchAPI";
 
 export const summaryVisual : VisualGenerator<SearchData> = async (data : SearchData) => {
