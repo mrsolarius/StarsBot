@@ -1,10 +1,10 @@
 import {Command, CommandContext, Permission} from "./command";
 import {LaunchService} from "../models/launchAPI";
 import {launchList,launchFormatter} from "./launch/LaunchEmbedFormater";
-import {SearchData} from "./launch/search/prompt/type";
+import {SearchData} from "./launch/prompts/search/type";
 import {DiscordPromptRunner} from "discord.js-prompts";
 import {TextChannel} from "discord.js";
-import askUpcoming from "./launch/search/searchLaunchIndex";
+import askUpcoming from "./launch/prompts/searchLaunchIndex";
 
 export default class Launch implements Command {
     name = 'launch';
@@ -48,6 +48,7 @@ export default class Launch implements Command {
                         return ctx.channel.send(`> :warning: ${e.message}`)
                 }
             case 'help':
+                //@todo faire une commande d'aide
                 break;
             default:
         }

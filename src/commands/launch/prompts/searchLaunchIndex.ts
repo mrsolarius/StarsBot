@@ -1,8 +1,8 @@
 import {PromptNode} from "discord.js-prompts";
-import {askSearchPrompt} from "./prompt/askSearch";
-import {askNumberPrompt} from "./prompt/askNumber";
-import {summaryPrompt} from "./prompt/summary";
-import {askUpcomingPrompt} from "./prompt/askUpcoming";
+import {askSearchPrompt} from "./search/askSearch";
+import {askNumberPrompt} from "./search/askNumber";
+import {summaryPrompt} from "./search/summary";
+import {askUpcomingPrompt} from "./search/askUpcoming";
 
 
 const askUpcoming = new PromptNode(askUpcomingPrompt);
