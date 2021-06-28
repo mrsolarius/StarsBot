@@ -11,7 +11,7 @@ export function launchList(upcomingLaunch: Array<LaunchSerializerCommon>,title:s
     for (const upcomingElement of upcomingLaunch) {
         if (typeof upcomingElement.net === "string") {
 
-            me.addField((displayNumber?i+' ':'')+new Date(Date.parse(upcomingElement.net)).toDateString(),
+            me.addField((displayNumber?i+' '+new Date(Date.parse(upcomingElement.net)).toLocaleDateString():new Date(Date.parse(upcomingElement.net)).toLocaleDateString()),
                 `
                            🚀 *${typeof upcomingElement.rocket?.configuration?.name !== 'undefined' ? upcomingElement.rocket?.configuration?.name : 'unknown'}*
                            🧑‍💼 *${typeof upcomingElement.mission?.name !== 'undefined' ? upcomingElement.mission?.name : 'unknown'}*
