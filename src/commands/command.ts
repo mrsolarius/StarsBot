@@ -10,7 +10,6 @@ export interface Command {
     precondition?: Permission;
     summary: string;
     usage?: string;
-
     execute: (ctx: CommandContext, ...args: any) => Promise<any> | void;
 }
 
