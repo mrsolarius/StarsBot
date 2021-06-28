@@ -1,6 +1,6 @@
 import {Command, CommandContext, Permission} from "./command";
 import {LaunchService} from "../models/launchAPI";
-import {launchList,launchFormatter} from "./launch/LaunchEmbedFormater";
+import {launchList,launchFormatter} from "./launch/launchEmbedFormater";
 import {SearchData} from "./launch/prompts/search/type";
 import {DiscordPromptRunner} from "discord.js-prompts";
 import {TextChannel} from "discord.js";
