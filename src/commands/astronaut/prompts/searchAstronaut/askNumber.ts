@@ -1,12 +1,9 @@
-import {DiscordPrompt, MessageVisual, Rejection, VisualGenerator} from "discord.js-prompts";
+import {DiscordPrompt, MessageVisual, Rejection} from "discord.js-prompts";
 import {SearchAstronautData} from "./type";
-import {astronautsList} from "../../astronautEmbedFormater";
 import {Message} from "discord.js";
 
 
-export const askNumberVisual : VisualGenerator<SearchAstronautData> = async (data:SearchAstronautData)=>{
-    return new MessageVisual('',{embed:astronautsList(data.astronautsFound,true)})
-}
+export const askNumberVisual = new MessageVisual('Choose an astraunaut by his number')
 
 export const askNumberFn:(m: Message, data: SearchAstronautData) => Promise<SearchAstronautData> = async (m:Message, data:SearchAstronautData) => {
     const maxNumber = data.astronautsFound.length
