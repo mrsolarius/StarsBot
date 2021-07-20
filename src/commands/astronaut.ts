@@ -1,7 +1,7 @@
 import {Command, CommandContext} from "./command";
 import {AstronautNormal, AstronautService} from "../models/launchAPI";
 import {DiscordPromptRunner} from "discord.js-prompts";
-import {TextChannel} from "discord.js";
+import {MessageEmbed, TextChannel} from "discord.js";
 import {SearchAstronautData} from "./astronaut/prompts/searchAstronaut/type";
 import askNumber from "./astronaut/prompts/searchAstronautIndex";
 import {astronautsList, displayAstronaut} from "./astronaut/astronautEmbedFormater";
@@ -15,6 +15,9 @@ export default class Astronaut implements Command{
     async execute(ctx: CommandContext): Promise<Promise<any> | void> {
         const args = ctx.msg.content.split(' ')
         if (args.length>1){
+            if (args[1]==="help"){
+                return ctx.channel.send(this.renderHelp())
+            }
             const search = args.slice(1,args.length).join(' ')
             try {
                 let params = {search,limit:100,offset:0,ordering:'name'}
@@ -43,7 +46,17 @@ export default class Astronaut implements Command{
             else
                 return ctx.channel.send(`> :warning: ${e.message}`)
             }
+        }else{
+            return ctx.channel.send(`> :warning: please search something \`!astronaut help\` for more information `)
         }
+    }
+
+    private renderHelp() {
+        return new MessageEmbed()
+            .setColor('#009dff')
+            .setTitle('Need Help ?')
+            .setDescription(this.summary)
+            .addField('!astronaut `your search`', 'To Search And display profile of an astronaut', true)
     }
 
 }

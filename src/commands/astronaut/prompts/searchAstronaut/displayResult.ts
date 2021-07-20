@@ -5,8 +5,6 @@ import {displayAstronaut} from "../../astronautEmbedFormater";
 
 export const displayResultVisual : VisualGenerator<SearchAstronautData> = async (data : SearchAstronautData) => {
     // @ts-ignore
-    console.log(data.astronautsFound[data.selectedNumber].id)
-    // @ts-ignore
     const astronaut = await AstronautService.astronautRead({id:data.astronautsFound[data.selectedNumber].id})
     return new MessageVisual('', {embed: displayAstronaut(astronaut)})
 }
