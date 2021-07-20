@@ -23,6 +23,11 @@ env.set('PREFIX',(value :string) =>{
         throw new TypeError('Prefix should not be empty');
 });
 
+env.set('NASA_API',(value :string) =>{
+    if (!value)
+        throw new TypeError('NASA_API should not be empty');
+});
+
 export function validateEnv() {
     for (const key in process.env) {
         if (env.has(key)) {

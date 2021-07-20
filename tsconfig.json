@@ -4,6 +4,7 @@
     "module": "CommonJS",
     "lib": [
       "ESNext",
+      "ES6",
       "dom"
     ],
     "moduleResolution": "Node",
