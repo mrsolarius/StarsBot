@@ -2,7 +2,9 @@
 Le bot Discord des étoiles !
 
 # Aide utilisateurs
-Le bot comporte 4 commande :
+Le bot comporte 5 commande :
+
+`!help` Qui permet d'afficher l'aide
 
 `!ping` Qui permet de connaître le temps de réponse du bot
 
