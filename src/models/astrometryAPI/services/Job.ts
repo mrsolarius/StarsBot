@@ -22,4 +22,12 @@ export class Job{
     public static getSkyPlotURL(jobID:number,zoom:0|1|2|3):string{
         return `https://nova.astrometry.net/sky_plot/zoom${zoom}/${jobID}`;
     }
+
+    static async getCalibration(jobID: number) {
+        const res = await request({
+            method:"GET",
+            path:"/jobs/"+jobID+"/calibration/"
+        })
+        return await res.json();
+    }
 }
