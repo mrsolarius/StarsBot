@@ -1,6 +1,6 @@
 import fetch, {RequestInit, Response} from "node-fetch";
 import FormData from "form-data";
-import {ApiRequestOptions, fileSnowFlake} from "./ApiRequestOptions";
+import {ApiRequestOptions, FileSnowFlake} from "./ApiRequestOptions";
 
 const API_PATH = "http://nova.astrometry.net/api/"
 
@@ -13,11 +13,15 @@ export function extractFileNameFromUrl(url: string): string {
         throw new Error("this url have no files")
 }
 
-export async function downloadFile(url: string): Promise<fileSnowFlake> {
+export async function downloadImage(url: string): Promise<FileSnowFlake> {
     const response = await fetch(url)
-    return {
-        fileName: extractFileNameFromUrl(url),
-        stream: await response.buffer()
+    if (response.headers.get("content-type")?.startsWith("image")) {
+        return {
+            fileName: extractFileNameFromUrl(url),
+            stream: await response.buffer()
+        }
+    }else {
+        throw new Error("URL does not contain image")
     }
 }
 

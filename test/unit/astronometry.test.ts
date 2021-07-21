@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import {downloadFile, extractFileNameFromUrl, request} from "../../src/models/astrometryAPI/core/request";
+import {downloadImage, extractFileNameFromUrl, request} from "../../src/models/astrometryAPI/core/request";
 
 describe('utils/astronometry', () => {
     const ogEnv = { ...process.env };
@@ -9,7 +9,7 @@ describe('utils/astronometry', () => {
     })
 
     it('downloadFile must return a buffer', async () => {
-        const fileSnowFlake = await downloadFile("https://media.discordapp.net/attachments/591934698129850378/867006589072703508/69acd11e-stellina-le-telescope-astronomique-connecte-et-automatique__w800.jpeg")
+        const fileSnowFlake = await downloadImage("https://media.discordapp.net/attachments/591934698129850378/867006589072703508/69acd11e-stellina-le-telescope-astronomique-connecte-et-automatique__w800.jpeg")
         const sessionReq = await request({
             method:"POST",
             path:"/login",
@@ -32,5 +32,11 @@ describe('utils/astronometry', () => {
         const res = extractFileNameFromUrl("https://media.discordapp.net/attachments/591934698129850378/867006589072703508/69acd11e-stellina-le-telescope-astronomique-connecte-et-automatique__w800.jpeg")
         console.log(res)
         expect(res).equal('69acd11e-stellina-le-telescope-astronomique-connecte-et-automatique__w800.jpeg')
+    });
+
+    it('should download only image files', async function () {
+        expect(downloadImage("https://upload.wikimedia.org/wikipedia/commons/5/5e/BH_LMC.png")).to.not.throw
+        expect(downloadImage("https://fr.wikipedia.org/wiki/Trou_noir#/media/Fichier:BH_LMC.png")).to.throw
+        expect(downloadImage("https://google.fr/")).to.throw
     });
 });
