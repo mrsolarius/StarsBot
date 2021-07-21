@@ -9,7 +9,6 @@ export class Login{
             method: "POST",
             query: {apikey: process.env.ASTROMETRY_API}
         })
-        console.log(await res.text())
         return await res.json()
     }
 }

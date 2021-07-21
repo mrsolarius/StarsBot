@@ -18,4 +18,8 @@ export class Job{
     public static getAnnotatedURL(jobID:number):string{
         return "https://nova.astrometry.net/annotated_display/"+jobID;
     }
+
+    public static getSkyPlotURL(jobID:number,zoom:0|1|2|3):string{
+        return `https://nova.astrometry.net/sky_plot/zoom${zoom}/${jobID}`;
+    }
 }
