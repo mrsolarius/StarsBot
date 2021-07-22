@@ -15,6 +15,10 @@ export class Job{
         return "https://nova.astrometry.net/red_green_image_display/"+jobID;
     }
 
+    public static getSDDS(jobID:number):string{
+        return "http://nova.astrometry.net/sdss_image_display/"+jobID;
+    }
+
     public static getAnnotatedURL(jobID:number):string{
         return "https://nova.astrometry.net/annotated_display/"+jobID;
     }
