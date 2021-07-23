@@ -39,7 +39,7 @@ export default class implements Command {
                     const result = await Job.getJobResult(<number>jobs.jobs[0])
                     const calibration = await Job.getCalibration(<number>jobs.jobs[0])
                     msg.delete()
-                    const menu = new DiscordEmbedMenu(ctx.channel,ctx.msg.author,this.astrometryEmbed(result, jobs, calibration),600000,true,true,false)
+                    const menu = new DiscordEmbedMenu(ctx.channel, ctx.msg.author, this.astrometryEmbedsMenuFormatter(result, jobs, calibration), 600000, true, true, false)
                     return menu.start();
                 } catch (e) {
                     return null
@@ -111,13 +111,13 @@ export default class implements Command {
         return {jobs, msg}
     }
 
-    astrometryEmbed(data: JobResult, submissionStatus: SubmissionStatus, calibration: Calibration) {
+    astrometryEmbedsMenuFormatter(data: JobResult, submissionStatus: SubmissionStatus, calibration: Calibration) {
         const mainMenu = new MessageEmbed()
         mainMenu.setTitle("Menu of your result")
         mainMenu.setDescription("this menu work with emoji that you need to clik into")
-        mainMenu.addField("📊", "See your result")
-        mainMenu.addField("🔭", "See the SDSS of your sky location")
-        mainMenu.addField("🗺️", "See sky maps")
+        mainMenu.addField("📊 Result", "See your result", true)
+        mainMenu.addField("🔭 SDSS", "See the SDSS of your sky location", true)
+        mainMenu.addField("🗺️ Maps", "See sky maps", true)
 
         const mainAnalyse: MessageEmbed = new MessageEmbed();
         mainAnalyse.setTitle("Analyse of your AstroPhoto")
@@ -136,34 +136,10 @@ export default class implements Command {
         mainAnalyse.addField("Detected object", objectStr, true)
         mainAnalyse.setImage(Job.getAnnotatedURL(<number>submissionStatus.jobs[0]))
 
-        const mapEmbed = new MessageEmbed()
-        mapEmbed.setTitle("Analyse of your AstroPhoto")
-        mapEmbed.setDescription("This menu can help you to choose the scale of map")
-        mapEmbed.addField("🌌", "To see the full sky", true)
-        mapEmbed.addField("🎇", "To see the constelation around", true)
-        mapEmbed.addField("🎆", "To see near object of your photo ", true)
-        mapEmbed.addField("🌠", "To see object in your photo ", true)
-
-        const x1 = new MessageEmbed()
-        x1.setTitle("Map Zoom x1")
-        x1.setImage(Job.getSkyPlotURL(<number>submissionStatus.job_calibrations[0][1], 0))
-
-        const x2 = new MessageEmbed()
-        x2.setTitle("Map Zoom x2")
-        x2.setImage(Job.getSkyPlotURL(<number>submissionStatus.job_calibrations[0][1], 1))
-
-        const x3 = new MessageEmbed()
-        x3.setTitle("Map Zoom x3")
-        x3.setImage(Job.getSkyPlotURL(<number>submissionStatus.job_calibrations[0][1], 2))
-
-        const x4 = new MessageEmbed()
-        x4.setTitle("Map Zoom x4")
-        x4.setImage(Job.getSkyPlotURL(<number>submissionStatus.job_calibrations[0][1], 3))
-
-
         const SDDSEmbed = new MessageEmbed()
         SDDSEmbed.setTitle("Analyse of your AstroPhoto")
         SDDSEmbed.setImage(Job.getSDDS(<number>submissionStatus.job_calibrations[0][1]))
+        SDDSEmbed.setFooter('↩️ go back')
 
         let embeds: Array<DiscordEmbedMenuPage> = [
             {
@@ -186,55 +162,7 @@ export default class implements Command {
                 }
             },
             {
-                index:2,
-                name: 'maps_menu',
-                content: mapEmbed,
-                reactions: {
-                    '🏠': 'first',
-                    '🌌':'x1',
-                    '🎇':'x2',
-                    '🎆':'x3',
-                    '🌠':'x4'
-                }
-            },
-            {
                 index: 3,
-                name: 'x1',
-                content: x1,
-                reactions: {
-                    '🏠': 'first',
-                    '↩️': 'maps_menu',
-                }
-            },
-            {
-                index: 4,
-                name: 'x2',
-                content: x2,
-                reactions: {
-                    '🏠': 'first',
-                    '↩️': 'maps_menu',
-                }
-            },
-            {
-                index: 5,
-                name: 'x3',
-                content: x3,
-                reactions: {
-                    '🏠': 'first',
-                    '↩️': 'maps_menu',
-                }
-            },
-            {
-                index: 5,
-                name: 'x4',
-                content: x4,
-                reactions: {
-                    '🏠': 'first',
-                    '↩️': 'maps_menu',
-                }
-            },
-            {
-                index: 6,
                 name: 'sdds',
                 content: SDDSEmbed,
                 reactions: {
@@ -242,6 +170,60 @@ export default class implements Command {
                 }
             },
         ]
+        embeds = embeds.concat(this.generateEveryMaps(<number>submissionStatus.job_calibrations[0][1], embeds.length - 1))
+        console.log(embeds)
         return embeds
+    }
+
+    embedZoomGenerator(jobid: number, zoom: 0 | 1 | 2 | 3) {
+        const x1 = new MessageEmbed()
+        x1.setTitle("Map Zoom x" + (zoom + 1))
+        x1.setImage(Job.getSkyPlotURL(jobid, zoom))
+        x1.setFooter('🏠 main menu | ↩️ go back')
+        return x1
+    }
+
+    generateEveryMaps(jobid: number, startindex: number) {
+
+        let embeds: Array<DiscordEmbedMenuPage> = []
+        embeds.push(this.generateMapsMainMenu(startindex++))
+        for (let i = 0; i <= 3; i++) {
+            const embedZoom = this.embedZoomGenerator(jobid, <0 | 1 | 2 | 3>i)
+            embeds.push({
+                index: startindex++,
+                name: 'x' + i,
+                content: embedZoom,
+                reactions: {
+                    '🏠': 'first',
+                    '↩️': 'maps_menu',
+                }
+            });
+        }
+        return embeds
+    }
+
+
+    generateMapsMainMenu(index: number){
+        const mapEmbed = new MessageEmbed()
+        mapEmbed.setTitle("Scale Mapping Menu")
+        mapEmbed.setDescription("This menu can help you to choose the scale of map")
+        mapEmbed.addField("🌌 Zoom x1", "To see the full sky", true)
+        mapEmbed.addField("🎇 Zoom x2", "To see the constelation around", true)
+        mapEmbed.addField("🎆 Zoom x3", "To see near object of your photo ")
+        mapEmbed.addField("🌠 Zoom x4", "To see object in your photo ", true)
+        mapEmbed.setFooter('↩️ go back')
+
+        return {
+            index: index,
+            name: 'maps_menu',
+            content: mapEmbed,
+            reactions: {
+                '↩️': 'first',
+                '🌌': 'x0',
+                '🎇': 'x1',
+                '🎆': 'x2',
+                '🌠': 'x3'
+            }
+        }
     }
 }
