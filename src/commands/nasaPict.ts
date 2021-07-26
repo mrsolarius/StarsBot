@@ -1,7 +1,7 @@
 import {Command, CommandContext, Permission} from "./command";
 import {MessageEmbed} from "discord.js"
 import QueryAPOD from "../models/nasaAPOD/queryAPOD";
-import bodyAPOD from "../models/nasaAPOD/interfaces/bodyAPOD.interface";
+import bodyAPOD from "../models/nasaAPOD/models/bodyAPOD.interface";
 
 export default class NasaPict implements Command {
     name = 'apod';

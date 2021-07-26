@@ -1,0 +1,24 @@
+export type SubmittingSettings = {
+    session:string;
+    url?:string;
+    allow_commercial_use:'d'|'y'|'n';
+    allow_modifications:'d'|'y'|'n';
+    publicly_visible:'y'|'n';
+    scale_units?:'degwidth'|'arcminwidth'|'arcsecperpix';
+    scale_type?:'ul'|'ev';
+    scale_lower?:number;
+    scale_upper?:number;
+    scale_est?:number;
+    scale_err?:number;
+    center_ra?:number;
+    center_dec?:number;
+    radius?:number;
+    downsample_factor?:number;
+    tweak_order?:bigint;
+    use_sextractor?:boolean;
+    crpix_center?:boolean;
+    parity?:0|1|2;
+    image_width?:bigint;
+    image_height?:bigint;
+    positional_error?:number;
+};

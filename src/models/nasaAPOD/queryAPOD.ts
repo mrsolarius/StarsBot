@@ -1,5 +1,5 @@
-import aopdQuery from "./interfaces/queryAPOD.interface";
-import bodyAPOD from "./interfaces/bodyAPOD.interface";
+import aopdQuery from "./models/queryAPOD.interface";
+import bodyAPOD from "./models/bodyAPOD.interface";
 import fetch from "node-fetch";
 import HTTPError from "../../utils/HTTPError";
 

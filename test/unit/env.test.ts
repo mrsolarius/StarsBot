@@ -61,4 +61,10 @@ describe('utils/env', () => {
 
         expect(validateEnv).to.not.throw();
     });
+
+    it('ASTROMETRY_API is not defined, error throw ', function () {
+        process.env.ASTROMETRY_API=undefined
+
+        expect(validateEnv).to.throw();
+    });
 });
