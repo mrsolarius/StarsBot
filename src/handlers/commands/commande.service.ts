@@ -42,10 +42,10 @@ export default class CommandService {
         } catch (error) {
             console.log("Command.service : \n" + error)
             if (error instanceof TypeError && error.message === 'Cannot read property \'execute\' of undefined'){
-                await msg.channel.send(`> :warning: la command demander n'existes pas`);
+                await msg.channel.send(`> :warning: la commande demandée n'existe pas !`);
                 return Promise.reject()
             }
-            const content = error?.message ?? 'Une erreur inconue c\'est produit.';
+            const content = error?.message ?? 'Une erreur inconnue s\'est produite.';
             await msg.channel.send(`> :warning: ${content}`);
             return Promise.reject()
         }

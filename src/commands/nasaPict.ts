@@ -40,7 +40,7 @@ export default class NasaPict implements Command {
                     }
             }
         } else {
-            return await ctx.msg.channel.send(`> :warning: unkonwn action request pleeze type \`!aopd help\` to get help`);
+            return await ctx.msg.channel.send(`> :warning: unknown action request. Please type \`!aopd help\` to get help`);
         }
     }
 
