@@ -1,0 +1,22 @@
+{
+  "curiosity": {
+    "full": "https://upload.wikimedia.org/wikipedia/commons/6/67/MSL_Sol_3070_-_MAHLI.jpg",
+    "half": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/MSL_Sol_3070_-_MAHLI.jpg/615px-MSL_Sol_3070_-_MAHLI.jpg",
+    "logo": ""
+  },
+  "spirit": {
+    "full": "https://upload.wikimedia.org/wikipedia/commons/8/84/Spirit_Rover_Cleaned.jpg",
+    "half": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Spirit_Rover_Cleaned.jpg/640px-Spirit_Rover_Cleaned.jpg",
+    "logo": ""
+  },
+  "opportunity": {
+    "full": "https://upload.wikimedia.org/wikipedia/commons/3/3b/PIA07372-MarsOpportunityRover-SelfPortrait-20041220-crop-rotate-sm.jpg",
+    "half": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/PIA07372-MarsOpportunityRover-SelfPortrait-20041220-crop-rotate-sm.jpg/581px-PIA07372-MarsOpportunityRover-SelfPortrait-20041220-crop-rotate-sm.jpg",
+    "logo": ""
+  },
+  "perseverance": {
+    "full": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/PIA24542.tif/lossy-page1-1280px-PIA24542.tif.jpg",
+    "half": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/PIA24542.tif/lossy-page1-640px-PIA24542.tif.jpg",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Mars_2020_JPL_second_insignia.svg/480px-Mars_2020_JPL_second_insignia.svg.png"
+  }
+}

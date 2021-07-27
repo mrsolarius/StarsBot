@@ -1,4 +1,4 @@
-import {Cameras} from "./Cameras";
+import {Camera} from "./Camera";
 
 export type RoverManifest = {
     id:bigint;
@@ -9,5 +9,5 @@ export type RoverManifest = {
     max_sol:bigint;
     max_date:Date;
     total_photos:bigint;
-    cameras:Cameras;
+    cameras:Array<Camera>;
 }
