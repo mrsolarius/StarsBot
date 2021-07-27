@@ -13,7 +13,7 @@ export default class RoverServices {
     static async roverManifest(rover: string): Promise<RoverManifest> {
         const result = await request({path: '/rovers/' + rover.toLowerCase()})
         const json = await result.json()
-        if (typeof json.errors === "undefined")
+        if (typeof json.errors !== "undefined")
             throw new Error(json.errors)
         return json.rover
     }
@@ -26,8 +26,7 @@ export default class RoverServices {
             result = await request({path: '/rovers/' + rover.toLowerCase() + '/latest_photos', query: {camera: camera}})
 
         const json = await result.json()
-        console.log(json)
-        if (typeof json.errors === "undefined")
+        if (typeof json.errors !== "undefined")
             throw new Error(json.errors)
         return json.latest_photos
     }
@@ -37,29 +36,28 @@ export default class RoverServices {
             sol?: number; camera?: string , earth_date?:string
         }
         query = {}
-        if(search.sol)
+        if(typeof search.sol !== "undefined")
             query = {
                 ...query,
                 sol:search.sol
             }
-        if (search.camera)
+        if (typeof search.camera !== "undefined")
             query = {
                 ...query,
                 camera:search.camera
             }
-        if (search.earth_date){
+        if (typeof search.earth_date !== "undefined"){
             query = {
                 ...query,
                 earth_date: `${search.earth_date?.getFullYear()}-${search.earth_date?.getMonth()}-${search.earth_date?.getDate()}`,
             }
         }
-        console.log(query)
         const result = await request({
             path: '/rovers/' + search.rover.toLowerCase() + '/photos',
             query: query
         })
         const json = await result.json()
-        if (typeof json.errors === "undefined")
+        if (typeof json.errors !== "undefined")
             throw new Error(json.errors)
         return json.photos
     }

@@ -24,21 +24,22 @@ describe('model/mars-rover-api', () => {
     });
 
     it('should throw error while trying to get rover manifest', async function () {
-        const roverManifest = await RoverServices.roverManifest("this can't be a rover name at all")
+        const roverManifest = RoverServices.roverManifest("this can't be a rover name at all")
         expect(roverManifest).to.throw
     });
 
     it('should get last photos of curiosity', async function () {
-        const roverManifest = await RoverServices.lastRoverPhotos("Curiosity")
-        expect(roverManifest).does.not.throw
+        const roverManifest = RoverServices.lastRoverPhotos("Curiosity")
+        expect(roverManifest).to.not.throw
     });
 
     it('should throw error while trying to get last photos of rover', async function () {
-        const roverManifest = await RoverServices.lastRoverPhotos("this can't be a rover name at all")
+        const roverManifest = RoverServices.lastRoverPhotos("this can't be a rover name at all")
         expect(roverManifest).to.throw
     });
 
     it('should get photos of rover perseverance on camera EDL_DDCAM on sol 0 ', async function () {
+        process.env.NASA_API = "lndbbt7CkUaTg6612X8Vo3czcdz7B5lxWLuAIcSn";
         const roverManifest = await RoverServices.getRoverPhotos({rover:"Perseverance",sol:0,camera:"EDL_DDCAM"})
         expect(roverManifest.length>0).to.be.true
     });
@@ -54,7 +55,7 @@ describe('model/mars-rover-api', () => {
     });
 
     it('should throw error while trying to get rover manifest', async function () {
-        const roverManifest = await RoverServices.getRoverPhotos({rover:"this can't be a rover name at all",sol:0})
+        const roverManifest = RoverServices.getRoverPhotos({rover:"this can't be a rover name at all",sol:0})
         expect(roverManifest).to.throw
     });
 

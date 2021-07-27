@@ -10,6 +10,5 @@ export async function request(options: ApiRequestOptions): Promise<Response> {
         api_key:process.env.NASA_API
     }
     url.search = new URLSearchParams(params).toString()
-    console.log(url.href)
     return await fetch(url)
 }
