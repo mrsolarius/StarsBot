@@ -41,7 +41,7 @@ export default class Launch implements Command {
             case 'search':
                 try {
                     const runner = new DiscordPromptRunner<SearchData>(ctx.msg.author, {searchNumber: -1})
-                    await runner.run(askUpcoming, ctx.channel as TextChannel)
+                    return await runner.run(askUpcoming, ctx.channel as TextChannel)
                 } catch (e) {
                     if (e.status >= 400)
                         return ctx.channel.send(`> :warning: ${e.statusText} : ${e.body.detail}`)
