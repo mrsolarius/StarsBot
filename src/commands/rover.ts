@@ -84,10 +84,6 @@ export default class implements Command {
         embed.setThumbnail(imgRover[rover.name.toLowerCase()].logo)
         // @ts-ignore
         embed.setImage(imgRover[rover.name.toLowerCase()].half)
-        /**
-        embed.addField("Key date",`Launch: ${new Date(rover.launch_date).toDateString()}\n Landing: ${new Date(rover.landing_date).toDateString()}\n`,true)
-        embed.addField("Photo stats",`Total photo: ${rover.total_photos}\nLast photo (sol):${rover.max_sol}\nLast photo (time):${new Date(rover.max_date).toDateString()}\n`,true)
-        **/
         embed.addField("Launch",new Date(rover.launch_date).toDateString(),true)
         embed.addField("Landing",new Date(rover.landing_date).toDateString(),true)
         embed.addField("Total photo",rover.total_photos,true)
