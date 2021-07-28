@@ -13,34 +13,52 @@ export default class implements Command {
 
     async execute(ctx: CommandContext) {
         const args = ctx.msg.content.split(' ')
-        switch (args[1]){
-            case 'help':
-                // @todo display help message
-                break;
-            case 'status':
-                if (args.length>=3){
-                    // @todo display manifest of selected rover
-                }else {
-                    // @todo display manifest of all rovers
-                }
-                break;
-            case 'last':
-                if (args.length>=3){
-                    // @todo display precised rover last images
-                }else{
-                    // @todo display a prompt message to ask for the rover
-                }
-                break;
-            default:
-                await ctx.msg.channel.send(this.displayManifest(await RoverServices.roverManifest(args[1])))
+        if (args.length>1) {
+            switch (args[1]) {
+                case 'help':
+                    // @todo display help message
+                    break;
+                case 'status':
+                    if (args.length >= 3) {
+                        // @todo display manifest of selected rover
+                    } else {
+                        // @todo display manifest of all rovers
+                    }
+                    break;
+                case 'last':
+                    if (args.length >= 3) {
+                        // @todo display precised rover last images
+                    } else {
+                        // @todo display a prompt message to ask for the rover
+                    }
+                    break;
+                default:
+                    await ctx.msg.channel.send(this.displayManifest(await RoverServices.roverManifest(args[1])))
+            }
         }
+        const menu = new DiscordEmbedMenu(ctx.channel, ctx.msg.author,this.everyRoversManifest(await RoverServices.roverLists()));
+        await menu.start()
     }
 
-    everyRoversManifest():Array<DiscordEmbedMenuPage>{
+    everyRoversManifest(rovers:Array<RoverManifest>):Array<DiscordEmbedMenuPage>{
         let discordEmbedMenu:Array<DiscordEmbedMenuPage>  = []
-
-
-
+        for (const rover of rovers) {
+            const msg = this.displayManifest(rover)
+            msg.setFooter('⬅️ précédent | ➡️ suivent | 📷 last photos')
+            const roverManifest : DiscordEmbedMenuPage = {
+                name:rover.name,
+                content:msg,
+                reactions:{
+                    '⬅️':'previous',
+                    '➡️':'next',
+                    '📷':async (menu : DiscordEmbedMenu) => {
+                        await menu.user.send("test")
+                    }
+                },
+                index:discordEmbedMenu.length-1
+            }
+            discordEmbedMenu.push(roverManifest)
+        }
         return discordEmbedMenu;
     }
 

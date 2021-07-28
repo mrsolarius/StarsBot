@@ -1,11 +1,10 @@
 import {request} from "../core/request";
-import {Rover} from "../model/Rover";
 import {RoverManifest} from "../model/RoverManifest";
 import {Photo} from "../model/Photo";
 
 export default class RoverServices {
 
-    static async roverLists(): Promise<Array<Rover>> {
+    static async roverLists(): Promise<Array<RoverManifest>> {
         const result = await request({path: '/rovers'})
         return (await result.json()).rovers
     }
