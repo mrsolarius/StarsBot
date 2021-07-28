@@ -48,7 +48,7 @@ export default class RoverServices {
         if (typeof search.earth_date !== "undefined"){
             query = {
                 ...query,
-                earth_date: `${search.earth_date?.getFullYear()}-${search.earth_date?.getMonth()}-${search.earth_date?.getDate()}`,
+                earth_date: `${search.earth_date?.getFullYear()}-${search.earth_date?.getMonth()+1}-${search.earth_date?.getDate()}`,
             }
         }
         const result = await request({
