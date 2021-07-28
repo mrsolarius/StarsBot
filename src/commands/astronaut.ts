@@ -6,6 +6,11 @@ import {SearchAstronautData} from "./astronaut/prompts/searchAstronaut/type";
 import askNumber from "./astronaut/prompts/searchAstronautIndex";
 import {astronautsList, displayAstronaut} from "./astronaut/astronautEmbedFormater";
 import {DiscordEmbedMenu} from "discord.js-embed-menu";
+import {HMPAISRNStruct} from "../models/hmpaisrn/model/HMPAISRNStruct";
+import {
+    getEmojiByCountryName,
+    getHowManyPeopleAreInSpaceRightNow
+} from "../models/hmpaisrn/HowManyPeopleAreInSpaceRightNow.Services";
 
 export default class Astronaut implements Command{
     name = 'astronaut';
@@ -47,7 +52,7 @@ export default class Astronaut implements Command{
                 return ctx.channel.send(`> :warning: ${e.message}`)
             }
         }else{
-            return ctx.channel.send(`> :warning: please search something \`!astronaut help\` for more information `)
+            return ctx.channel.send(this.renderAstronautInSpaceRightNow(await getHowManyPeopleAreInSpaceRightNow()))
         }
     }
 
@@ -57,6 +62,16 @@ export default class Astronaut implements Command{
             .setTitle('Need Help ?')
             .setDescription(this.summary)
             .addField('!astronaut `your search`', 'To Search And display profile of an astronaut', true)
+            .addField('!astronaut', 'To Display Curent Astronaut in Space', true)
+    }
+
+    private renderAstronautInSpaceRightNow(astronauts:HMPAISRNStruct){
+        const howManyPepoleAreIneSpaceRightNowEmbed = new MessageEmbed()
+            .setTitle("Actually there are "+ astronauts.number + " in space")
+        for (const astronaut of astronauts.people) {
+            howManyPepoleAreIneSpaceRightNowEmbed.addField(astronaut.name, `**${getEmojiByCountryName(astronaut.country)} ${astronaut.title}**\n🛰️ ${astronaut.location}`,true)
+        }
+        return howManyPepoleAreIneSpaceRightNowEmbed
     }
 
 }
