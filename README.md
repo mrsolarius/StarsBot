@@ -17,6 +17,12 @@ Pour plus d'information sur cette commande : `!launch help`
 `!astronaut` Qui permet d'obtenir de voir le profile d'un astronaute
 Pour plus d'information sur cette commande : `!astronaut help`
 
+`!astrometry` Qui permet d'analyser les astrophoto et d'identifier le nom des étoiles
+Pour plus d'information sur cette commande : `!astrometry help`
+
+`!rover` Qui permet d'obtenir des information & des photo sur les rover de la nasa sur mars
+Pour plus d'information sur cette commande : `!rover help`
+
 # Installation du bot
 1 - Cloner le projet
 
