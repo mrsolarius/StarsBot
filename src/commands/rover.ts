@@ -42,22 +42,36 @@ export default class implements Command {
 
     everyRoversManifest(rovers:Array<RoverManifest>):Array<DiscordEmbedMenuPage>{
         let discordEmbedMenu:Array<DiscordEmbedMenuPage>  = []
+        let i = 0;
         for (const rover of rovers) {
-            const msg = this.displayManifest(rover)
-            msg.setFooter('⬅️ précédent | ➡️ suivent | 📷 last photos')
+            const msg = this.displayManifest(rover).setFooter("")
+
+            let reaction = {}
+            if (i>0){
+                // @ts-ignore
+                reaction['⬅️']='previous'
+                msg.setFooter('⬅️ previous | ')
+            }
+            if (i<rovers.length-1){
+                // @ts-ignore
+                reaction['➡️']='next'
+                msg.setFooter(msg.footer?.text+'➡️ next | ')
+            }
+
+            // @ts-ignore
+            reaction['📷']=async (menu : DiscordEmbedMenu) => {
+                await menu.user.send("test")
+            }
+            msg.setFooter(msg.footer?.text+'📷 last rover photos')
+
             const roverManifest : DiscordEmbedMenuPage = {
                 name:rover.name,
                 content:msg,
-                reactions:{
-                    '⬅️':'previous',
-                    '➡️':'next',
-                    '📷':async (menu : DiscordEmbedMenu) => {
-                        await menu.user.send("test")
-                    }
-                },
+                reactions:reaction,
                 index:discordEmbedMenu.length-1
             }
             discordEmbedMenu.push(roverManifest)
+            i++
         }
         return discordEmbedMenu;
     }
