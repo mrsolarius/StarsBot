@@ -41,6 +41,7 @@ export default class implements Command {
     }
 
     everyRoversManifest(rovers:Array<RoverManifest>):Array<DiscordEmbedMenuPage>{
+        rovers = rovers.sort((a,b)=>a.status > b.status && 1 || -1)
         let discordEmbedMenu:Array<DiscordEmbedMenuPage>  = []
         let i = 0;
         for (const rover of rovers) {
@@ -60,7 +61,43 @@ export default class implements Command {
 
             // @ts-ignore
             reaction['📷']=async (menu : DiscordEmbedMenu) => {
-                await menu.user.send("test")
+                const roverImg = await RoverServices.lastRoverPhotos(rover.name)
+
+                let j = 0;
+                for (const photo of roverImg) {
+                    const emebd = new MessageEmbed()
+                    let photoReaction = {}
+                    // @ts-ignore
+                    photoReaction['🏠']= (menu : DiscordEmbedMenu) => {
+                        menu.pages = menu.pages.slice(0,rovers.length)
+                        menu.setPage(rover.name)
+                    }
+                    emebd.setFooter('🏠 Home')
+                    if (j>0){
+                        // @ts-ignore
+                        photoReaction['⬅️']='previous'
+                        emebd.setFooter(emebd.footer?.text+' | ⬅️ previous')
+                    }
+                    if (j<roverImg.length-1 && roverImg.length>1){
+                        // @ts-ignore
+                        photoReaction['➡️']='next'
+                        emebd.setFooter(emebd.footer?.text+' | ➡️ next')
+                    }
+                    emebd.setFooter(emebd.footer?.text+' | page '+(j+1)+'/'+roverImg.length)
+                    emebd.setAuthor("Taken by "+photo.camera.name)
+                    emebd.setTitle("Photo N°"+photo.id)
+                    emebd.setDescription("At sol "+photo.sol+"\n "+(new Date(photo.earth_date).toLocaleDateString()))
+                    emebd.setImage(photo.img_src)
+                    j++
+                    const imgManifest : DiscordEmbedMenuPage = {
+                        name:rover.name+photo.id,
+                        content:emebd,
+                        reactions:photoReaction,
+                        index:discordEmbedMenu.length-1
+                    }
+                    menu.pages.push(imgManifest)
+                }
+                menu.setPage(rover.name + roverImg[0].id)
             }
             msg.setFooter(msg.footer?.text+'📷 last rover photos')
 
