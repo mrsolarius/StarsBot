@@ -1,5 +1,6 @@
 import {request} from "../core/request";
 import {JobResult} from "../models/JobResult";
+import {JobStatus} from "../models/JobStatus";
 
 export class Job{
 
@@ -7,6 +8,14 @@ export class Job{
         const res = await request({
             method:"GET",
             path:"/jobs/"+jobID+"/info/"
+        })
+        return await res.json();
+    }
+
+    public static async getJobStatus(jobID:number):Promise<JobStatus>{
+        const res = await request({
+            method:"GET",
+            path:"/jobs/"+jobID
         })
         return await res.json();
     }

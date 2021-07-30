@@ -33,23 +33,29 @@ export default class implements Command {
         const attachement = ctx.msg.attachments.get(<string>num);
         if (typeof attachement !== "undefined") {
             if (attachement.height !== null && attachement.width !== null) {
-                //Launch Jobs Process
-                try {
-                    const {jobs, msg} = await this.astrometryProcess(ctx, attachement.proxyURL)
-                    const result = await Job.getJobResult(<number>jobs.jobs[0])
-                    const calibration = await Job.getCalibration(<number>jobs.jobs[0])
-                    msg.delete()
-                    const menu = new DiscordEmbedMenu(ctx.channel, ctx.msg.author, this.astrometryEmbedsMenuFormatter(result, jobs, calibration), 600000, true, true, false)
-                    return menu.start();
-                } catch (e) {
-                    return null
-                }
+                return this.astrometryResponse(ctx,attachement.proxyURL)
             }
         } else {
+            if (args.length>=2){
+                return this.astrometryResponse(ctx,args[1])
+            }
             return ctx.channel.send(`> :warning: you need to attach an image or to precise link to analyse your image`)
         }
 
         return ctx.channel.send('> :warning: unknown error')
+    }
+
+    async astrometryResponse(ctx:CommandContext,url:string){
+        try {
+            const {jobs, msg} = await this.astrometryProcess(ctx, url)
+            const result = await Job.getJobResult(<number>jobs.jobs[0])
+            const calibration = await Job.getCalibration(<number>jobs.jobs[0])
+            msg.delete()
+            const menu = new DiscordEmbedMenu(ctx.channel, ctx.msg.author, this.astrometryEmbedsMenuFormatter(result, jobs, calibration), 600000, true, true, false)
+            return menu.start();
+        } catch (e) {
+            return null
+        }
     }
 
     async astrometryProcess(ctx: CommandContext, url: string): Promise<{ jobs: SubmissionStatus, msg: Message }> {
@@ -78,34 +84,35 @@ export default class implements Command {
         msg.edit("Enqueue the jobs")
 
         //While no jobs number or error continue to ask for job numbers
-        let procesStarted = false //Flag to know when api said the jobs starts
-        let count = 0 //Counter to cancel task after around of asking when the job is finish
+        let lastMsg = "Enqueue the jobs"
+        let dots = ""
 
         do {
             //Wait 5 seconds to not dos the api server
             await delay(1000 * 5)
 
             //Ask for the jobs
+            //Need var to access to jobs on return values
             var jobs = await FileSubmitter.getSubmissionStatus(subscription.subid)
-
-            //Informe user when the job start
-            if (jobs.processing_started !== 'None' && !procesStarted) {
-                procesStarted = true
-                await msg.edit("Jobs start")
-            }
 
             //Cancel while if the main job is active but not calibrate job append after 5 attempt
             if (jobs.jobs.length >= 1 && jobs.jobs[0] != null) {
-                count++
-                if (count > 5) {
+                //Need var to access to status from while that is extern at this if
+                var {status} = await Job.getJobStatus(<number>jobs.jobs[0])
+                if (status === "?" || status ==="failure") {
                     msg.edit("> :warning: your image can't be calibrate")
                     return Promise.reject(new Error('can not calibrate image'))
+                }else{
+                    if (lastMsg!=="job "+status)
+                        dots = ''
+                    lastMsg = "job "+status
                 }
             }
 
             //Add somme point after message content after each iteration to informe user that everything processing
-            msg.edit(msg.content + ".")
-        } while (jobs.jobs.length < 1 || jobs.jobs[0] === null || jobs.job_calibrations.length < 1)
+            dots=dots+'.'
+            msg.edit(lastMsg +dots)
+        } while (status !=="success")
         msg.edit("Jobs end")
 
         return {jobs, msg}
@@ -171,7 +178,6 @@ export default class implements Command {
             },
         ]
         embeds = embeds.concat(this.generateEveryMaps(<number>submissionStatus.job_calibrations[0][1], embeds.length - 1))
-        console.log(embeds)
         return embeds
     }
 
