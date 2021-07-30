@@ -38,7 +38,7 @@ export default class implements Command {
             }
         }
         const menu = new DiscordEmbedMenu(ctx.channel, ctx.msg.author, this.everyRoversManifest(await RoverServices.roverLists()));
-        return  await menu.start()
+        return await menu.start()
     }
 
     everyRoversManifest(rovers: Array<RoverManifest>): Array<DiscordEmbedMenuPage> {
@@ -46,25 +46,25 @@ export default class implements Command {
         let discordEmbedMenu: Array<DiscordEmbedMenuPage> = []
         let i = 0;
         for (const rover of rovers) {
-            const msg = this.displayManifest(rover).setFooter("")
+            const msg = this.displayManifest(rover)
 
             let reaction = {}
             if (i > 0) {
                 // @ts-ignore
                 reaction['⬅️'] = 'previous'
-                msg.setFooter('⬅️ previous | ')
+                msg.setFooter(this.separateFooter(msg.footer) + '⬅️ previous')
             }
             if (i < rovers.length - 1) {
                 // @ts-ignore
                 reaction['➡️'] = 'next'
-                msg.setFooter(msg.footer?.text + '➡️ next | ')
+                msg.setFooter(this.separateFooter(msg.footer) + '➡️ next')
             }
 
             // @ts-ignore
             reaction['📷'] = async (menu: DiscordEmbedMenu) => {
                 await this.setupPhotoReaction(menu)
             }
-            msg.setFooter(msg.footer?.text + '📷 last rover photos')
+            msg.setFooter(this.separateFooter(msg.footer) + '📷 last rover photos')
 
             const roverManifest: DiscordEmbedMenuPage = {
                 name: rover.name,
